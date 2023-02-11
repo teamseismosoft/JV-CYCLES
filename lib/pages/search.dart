@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jv_cycles/data/List.dart';
+import 'package:jv_cycles/pages/productPage.dart';
 
 class SearchProduct extends StatefulWidget {
   const SearchProduct({super.key});
@@ -12,20 +13,12 @@ class _SearchProductState extends State<SearchProduct> {
   @override
   Widget build(BuildContext context) {
     List<Models> modelList = [
-      Models('Cycle 1', 10000,
+      Models('Cycle 1', 10000, 'hZDVmLeVs1AoIPimbgZX',
           'https://github.com/vikram-vikky2002/supportingDoc/blob/main/download%20(1).jpeg?raw=true'),
-      Models('Vikram', 12000,
+      Models('Cycle 2', 12000, 'TdsOaoACTxyugySdoxm4',
           'https://github.com/vikram-vikky2002/supportingDoc/blob/main/download%20(2).jpeg?raw=true'),
-      Models('Shagu', 14000,
+      Models('Cycle 3', 14000, 'isxMyiTmaXvib6HV56xL',
           'https://github.com/vikram-vikky2002/supportingDoc/blob/main/download%20(3).jpeg?raw=true'),
-      Models('Vishnu', 8000,
-          'https://github.com/vikram-vikky2002/supportingDoc/blob/main/download%20(4).jpeg?raw=true'),
-      Models('Cycle 5', 9000,
-          'https://github.com/vikram-vikky2002/supportingDoc/blob/main/download.jpeg?raw=true'),
-      Models('Cycle 6', 7000,
-          'https://github.com/vikram-vikky2002/supportingDoc/blob/main/images%20(1).jpeg?raw=true'),
-      Models('Cycle 7', 10000,
-          'https://github.com/vikram-vikky2002/supportingDoc/blob/main/images.jpeg?raw=true'),
     ];
 
     List<Models> displayList = List.from(modelList);
@@ -83,7 +76,15 @@ class _SearchProductState extends State<SearchProduct> {
                 child: ListView.builder(
                   itemCount: displayList.length,
                   itemBuilder: (context, index) => InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (builder) =>
+                              ProductPage(id: displayList[index].id!),
+                        ),
+                      );
+                    },
                     child: ListTile(
                       title: Padding(
                         padding: const EdgeInsets.symmetric(
