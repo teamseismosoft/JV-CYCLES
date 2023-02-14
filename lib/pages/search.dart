@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jv_cycles/data/List.dart';
 import 'package:jv_cycles/pages/productPage.dart';
@@ -33,89 +34,101 @@ class _SearchProductState extends State<SearchProduct> {
     }
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 60,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18),
-                child: Text(
-                  'Search for a Product',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: TextField(
-                  onChanged: (value) => updateList(value),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 190, 190, 190),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                    hintText: "eg: Lady Bird",
-                    prefixIcon: const Icon(Icons.search_rounded),
-                    prefixIconColor: Colors.black,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: displayList.length,
-                  itemBuilder: (context, index) => InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (builder) =>
-                              ProductPage(id: displayList[index].id!),
-                        ),
-                      );
-                    },
-                    child: ListTile(
-                      title: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 5),
+      body: StreamBuilder<Object>(
+          stream: FirebaseFirestore.instance.collection('products').snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 60,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 18),
                         child: Text(
-                          displayList[index].title!,
-                          style: const TextStyle(
-                            color: Colors.black,
+                          'Search for a Product',
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Text(
-                          '₹ ${displayList[index].price!}',
-                          style: const TextStyle(
-                              color: Colors.black54, fontSize: 18),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: TextField(
+                          onChanged: (value) => updateList(value),
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color.fromARGB(255, 190, 190, 190),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
+                            ),
+                            hintText: "eg: Lady Bird",
+                            prefixIcon: const Icon(Icons.search_rounded),
+                            prefixIconColor: Colors.black,
+                          ),
                         ),
                       ),
-                      leading: SizedBox(
-                          height: 60,
-                          width: 90,
-                          child: Image.network(displayList[index].photos!)),
-                    ),
-                  ),
-                ),
-              )
-            ]),
-      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: modelList.length,
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (builder) =>
+                                      ProductPage(id: displayList[index].id!),
+                                ),
+                              );
+                            },
+                            child: ListTile(
+                              title: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                child: Text(
+                                  displayList[index].title!,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              subtitle: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  '₹ ${displayList[index].price!}',
+                                  style: const TextStyle(
+                                      color: Colors.black54, fontSize: 18),
+                                ),
+                              ),
+                              leading: SizedBox(
+                                  height: 60,
+                                  width: 90,
+                                  child: Image.network(
+                                      displayList[index].photos!)),
+                            ),
+                          ),
+                        ),
+                      )
+                    ]),
+              );
+            }
+          }),
     );
   }
 }
