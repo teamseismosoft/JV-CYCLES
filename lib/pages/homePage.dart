@@ -1,8 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:jv_cycles/pages/search.dart';
+import 'package:jv_cycles/pages/productList.dart';
 import 'package:jv_cycles/pages/sideBar.dart';
-import 'package:jv_cycles/pages/viewAll.dart';
 import 'package:jv_cycles/widgets/carouselContainer.dart';
 
 class HomePage extends StatefulWidget {
@@ -66,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SearchProduct(),
+                    builder: (context) => gridView(),
                   ),
                 );
               },

@@ -17,15 +17,6 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   final productRef = FirebaseFirestore.instance.collection('products');
 
-  void initState() {
-    getDetails(widget.id);
-    super.initState();
-  }
-
-  getDetails(product) {
-    productRef.doc(product).get().then((document) {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,12 +104,27 @@ class _ProductPageState extends State<ProductPage> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      '₹ ${snapshot.data!['price']}',
+                                      '₹ ${snapshot.data!['currentPrice']}',
                                       style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
+                                  ),
+                                  Text(
+                                    '₹ ${snapshot.data!['actualPrice']}',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                  ),
+                                  Text(
+                                    "(${snapshot.data!['discount']}%)",
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.red),
                                   ),
                                 ],
                               )),
