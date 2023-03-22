@@ -94,11 +94,10 @@ class _gridViewState extends State<gridView> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width - 150,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         Product[index].name,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         style: const TextStyle(
                             fontSize: 21, fontWeight: FontWeight.w600),
                       ),
@@ -111,6 +110,7 @@ class _gridViewState extends State<gridView> {
                             style: const TextStyle(
                                 fontSize: 19, fontWeight: FontWeight.w500),
                           ),
+                          const SizedBox(width: 8),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text('₹ ${Product[index].actualPrice}',

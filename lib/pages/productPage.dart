@@ -1,8 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:jv_cycles/widgets/carouselContainer.dart';
 import 'package:jv_cycles/widgets/productSpec.dart';
 
@@ -46,16 +44,54 @@ class _ProductPageState extends State<ProductPage> {
                 child: Center(
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 230,
-                          width: MediaQuery.of(context).size.width - 10,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.amberAccent,
+                      Row(
+                        children: [
+                          Container(
+                            child: Column(
+                              children: const [
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: CircleAvatar(),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: CircleAvatar(),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: CircleAvatar(),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                          const SizedBox(),
+                          Flexible(
+                            child: CarouselSlider.builder(
+                              itemCount: snapshot.data!['img'].length,
+                              itemBuilder: (BuildContext context, int itemIndex,
+                                  int pageViewIndex) {
+                                return Container(
+                                  child: Image.network(
+                                    snapshot.data!['img'][itemIndex],
+                                    fit: BoxFit.fill,
+                                  ),
+                                );
+                              },
+                              options: CarouselOptions(
+                                height: 180,
+                                enlargeCenterPage: true,
+                                autoPlay: true,
+                                aspectRatio: 16 / 9,
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                enableInfiniteScroll: true,
+                                autoPlayAnimationDuration:
+                                    const Duration(seconds: 3),
+                                viewportFraction: 0.8,
+                                scrollDirection: Axis.horizontal,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
