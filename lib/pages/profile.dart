@@ -30,14 +30,36 @@ class profilePage extends StatelessWidget {
             'NAME',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
           ),
-          const Text('EMAIL'),
+          const Text('MOBILE NO : 1234567890'),
+          const Text('EMAIL : nitpy@gmail.com'),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: const Text(
+                  'Address Line 1\nAddress Line 2\nAddress Line 3\nPin Code',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ],
+          ),
           Padding(
-            padding: const EdgeInsets.only(top: 30, bottom: 10),
+            padding: const EdgeInsets.only(top: 20),
             child: Row(
-              children: [
+              children: const [
                 RoundedButton('Cart'),
-                const Spacer(),
+                Spacer(),
                 RoundedButton('Your Orders'),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Row(
+              children: const [
+                RoundedButton('Your Account'),
+                Spacer(),
+                RoundedButton('Your Address'),
               ],
             ),
           ),

@@ -39,6 +39,8 @@ dependencies:
   cloud_firestore: ^4.3.2
   firebase_core: ^2.5.0
   flutter_staggered_grid_view: ^0.6.2
+  
+  flutter_svg_provider: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -64,17 +66,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/LOGO.png
-    - assets/1.jpg
-    - assets/2.jpeg
-    - assets/3.jpeg
-    - assets/4.jpg
-    - assets/5.jpg
-    - assets/6.jpeg
-    - assets/11.png
-    - assets/12.png
-    - assets/13.png
-    - assets/14.png
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

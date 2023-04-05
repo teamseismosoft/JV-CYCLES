@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:jv_cycles/pages/loginPage.dart';
 import 'package:jv_cycles/pages/productList.dart';
+import 'package:jv_cycles/pages/profile.dart';
 import 'package:jv_cycles/pages/sideBar.dart';
 import 'package:jv_cycles/widgets/carouselContainer.dart';
 
@@ -201,6 +203,32 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(13),
+            child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => profilePage(),
+                    ),
+                  );
+                },
+                child: Text('PROFILE PAGE')),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(13),
+            child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Login(),
+                    ),
+                  );
+                },
+                child: Text('LOG IN PAGE')),
           )
         ],
       ),

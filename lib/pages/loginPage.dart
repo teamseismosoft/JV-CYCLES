@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,10 +18,10 @@ class _LoginState extends State<Login> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Color.fromARGB(255, 30, 84, 233),
-            Color.fromARGB(255, 177, 36, 202),
-          ]),
+          image: DecorationImage(
+            repeat: ImageRepeat.repeat,
+            image: Svg('assets/background (1).svg', size: Size(500, 500)),
+          ),
         ),
         child: SafeArea(
           child: Center(
@@ -111,8 +112,8 @@ class _LoginState extends State<Login> {
                     print('Sign In..');
                   },
                   child: Container(
-                    padding:
-                        const EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
+                    padding: const EdgeInsets.only(
+                        top: 8, bottom: 8, left: 20, right: 20),
                     margin: const EdgeInsets.symmetric(horizontal: 40),
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(colors: [
@@ -153,6 +154,44 @@ class _LoginState extends State<Login> {
                         ),
                       )
                     ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Row(
+                    children: [
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Container(
+                          width: (MediaQuery.of(context).size.width / 2) - 60,
+                          height: 2,
+                          color: Color.fromARGB(121, 255, 255, 255),
+                        ),
+                      ),
+                      const Spacer(),
+                      Text('OR',
+                          style: TextStyle(
+                              color: Color.fromARGB(121, 255, 255, 255))),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Container(
+                          width: (MediaQuery.of(context).size.width / 2) - 60,
+                          height: 2,
+                          color: Color.fromARGB(121, 255, 255, 255),
+                        ),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ],
