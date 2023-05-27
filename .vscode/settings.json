@@ -1,3 +1,4 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "cmake.sourceDirectory": "C:/Users/VIKRAM RAMESH/Development/JV_CYCLES/Seismo/JV-CYCLES/linux"
 }
