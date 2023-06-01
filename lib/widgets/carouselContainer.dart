@@ -6,13 +6,19 @@ class CaroselContainer extends StatelessWidget {
   final String img;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        image: DecorationImage(image: AssetImage(img)),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+            image: AssetImage(img),
+            fit: BoxFit.fill,
+          ),
+        ),
+        width: MediaQuery.of(context).size.width - 30,
+        height: 175,
       ),
-      width: MediaQuery.of(context).size.width - 30,
-      height: 175,
     );
   }
 }
@@ -43,7 +49,7 @@ class FeaturedContainer extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: 30,
-              color: const Color.fromARGB(218, 158, 158, 158),
+              color: Color.fromARGB(218, 235, 141, 68),
               child: Center(
                   child: Text(
                 text,

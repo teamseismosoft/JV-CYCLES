@@ -46,20 +46,20 @@ class _HomePageState extends State<HomePage> {
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               icon: const Icon(
                 Icons.menu_rounded,
-                color: Colors.black,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
             );
           },
         ),
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color.fromARGB(0, 255, 255, 255),
         title: Row(
           children: [
             const Padding(
               padding: EdgeInsets.only(left: 10),
               child: Text(
                 'JV Cycles',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
               ),
             ),
             const Spacer(),
@@ -74,12 +74,13 @@ class _HomePageState extends State<HomePage> {
               },
               icon: const Icon(
                 Icons.search_rounded,
-                color: Colors.black,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
             )
           ],
         ),
       ),
+      extendBodyBehindAppBar: true,
       body: Stack(children: [
         Container(
           height: MediaQuery.of(context).size.height,
@@ -93,6 +94,7 @@ class _HomePageState extends State<HomePage> {
         ),
         Column(
           children: [
+            const SizedBox(height: 80),
             CarouselSlider.builder(
               itemCount: banner.length,
               itemBuilder:
@@ -160,7 +162,7 @@ class _HomePageState extends State<HomePage> {
               width: MediaQuery.of(context).size.width - 28,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.grey.shade400,
+                color: Color.fromARGB(255, 250, 183, 139),
               ),
               child: Column(
                 children: [
