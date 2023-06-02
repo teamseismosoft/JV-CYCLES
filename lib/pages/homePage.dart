@@ -36,50 +36,7 @@ class _HomePageState extends State<HomePage> {
       //     ],
       //   ),
       // ),
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              icon: const Icon(
-                Icons.menu_rounded,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-            );
-          },
-        ),
-        elevation: 0,
-        backgroundColor: Color.fromARGB(0, 255, 255, 255),
-        title: Row(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Text(
-                'JV Cycles',
-                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-              ),
-            ),
-            const Spacer(),
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => gridView(),
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.search_rounded,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-            )
-          ],
-        ),
-      ),
+
       extendBodyBehindAppBar: true,
       body: Stack(children: [
         Container(
