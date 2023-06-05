@@ -1,6 +1,8 @@
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jv_cycles/pages/loginPage.dart';
 import 'package:jv_cycles/pages/productList.dart';
 import 'package:jv_cycles/pages/profile.dart';
@@ -37,36 +39,98 @@ class _HomePageState extends State<HomePage> {
       //   ),
       // ),
 
-      extendBodyBehindAppBar: true,
-      body: Stack(children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                repeat: ImageRepeat.noRepeat,
-                image: Svg('assets/background.svg'),
-                fit: BoxFit.fill),
-          ),
-        ),
+      body: ListView(children: [
+      Container(
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 20,
+            color: Colors.black.withOpacity(.1),
+          )
+        ],
+      ),),
         Column(
+
           children: [
-            const SizedBox(height: 80),
+
+            // Row(
+            //   children: [
+            //     Padding(
+            //       padding: const EdgeInsets.only(top: 18,left:10),
+            //       child: Text("crave for FIT?",style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold,color: Colors.red),),
+            //     ),
+            //   ],
+            // ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: ElevatedButton(onPressed:()=>context.go('/search'),
+                style:ElevatedButton.styleFrom(backgroundColor: Colors.orangeAccent,padding: EdgeInsets.all(10)),
+
+
+                child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text('search product',style: TextStyle(color: Colors.black.withOpacity(.3)),),Icon(Icons.search,color: Colors.black,)],
+                ),
+                      ),
+
+              ),),
+            ),
+            Container(padding:EdgeInsets.all(10),alignment: Alignment.centerLeft,
+    child:Text('Hot Deals 🔥',style: TextStyle(fontSize: 20),)),
             CarouselSlider.builder(
               itemCount: banner.length,
               itemBuilder:
                   (BuildContext context, int itemIndex, int pageViewIndex) =>
                       CaroselContainer(banner[itemIndex]),
               options: CarouselOptions(
-                height: 180,
+                height: 230,
                 enlargeCenterPage: true,
                 autoPlay: true,
-                aspectRatio: 16 / 9,
-                autoPlayCurve: Curves.fastOutSlowIn,
+                // autoPlayCurve: Curves.fastOutSlowIn,
                 enableInfiniteScroll: true,
-                autoPlayAnimationDuration: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(seconds: 1),
                 viewportFraction: 0.8,
                 scrollDirection: Axis.horizontal,
+              ),
+            ),
+    Container(padding:EdgeInsets.symmetric(horizontal: 10),child:
+            Column(
+              children: [
+                Text("New Arrivals ",style: TextStyle(fontSize: 20)),
+                Text("____________",style: TextStyle(color: Colors.orange,fontWeight: FontWeight.bold,fontSize: 20),)
+              ],
+              
+            ),),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: CarouselSlider.builder(
+                itemCount: banner.length,
+                itemBuilder:
+                    (BuildContext context, int itemIndex, int pageViewIndex) =>
+                    CaroselContainer(banner[itemIndex]),
+                options: CarouselOptions(
+                  height: 200,
+                  enlargeCenterPage: true,
+                  autoPlay: true,
+                  autoPlayCurve: Curves.easeIn,
+                  enableInfiniteScroll: true,
+                  autoPlayAnimationDuration: const Duration(seconds: 3),
+                  viewportFraction: 0.8,
+                  scrollDirection: Axis.vertical,
+                ),
+              ),
+            ),
+            Container(
+              child: Container(
+
               ),
             ),
             // InkWell(

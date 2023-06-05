@@ -9,6 +9,8 @@ import 'package:jv_cycles/pages/profile.dart';
 import 'package:jv_cycles/pages/sideBar.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart' hide Stack;
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:jv_cycles/pages/viewAll.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -19,13 +21,16 @@ final rootNavKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+      const MyApp());
+
 }
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => MaterialApp.router(
+    debugShowCheckedModeBanner: false,
     routerDelegate: _router.routerDelegate,
     routeInformationParser: _router.routeInformationParser,
     routeInformationProvider: _router.routeInformationProvider,
@@ -49,9 +54,12 @@ final GoRouter _router = GoRouter(
   ),
   GoRoute( path:'home',builder:(BuildContext context, GoRouterState state) =>const HomePage()
   ),
-  GoRoute( path:'/profile',builder:(BuildContext context, GoRouterState state) =>const profilePage()
+  GoRoute( path:'profile',builder:(BuildContext context, GoRouterState state) =>const profilePage()
   ),
-      GoRoute( path:'/viewall',builder:(BuildContext context, GoRouterState state) => ViewAll()
+      GoRoute( path:'viewall',builder:(BuildContext context, GoRouterState state) => ViewAll()
+      ),
+
+      GoRoute( path:'search',builder:(BuildContext context, GoRouterState state) => SearchProduct()
       )
 
    ],), ],),],);
@@ -92,55 +100,71 @@ class _rootState extends State<root> {
     //     style: optionStyle,
     //   ),
     // ];
+    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
     return Scaffold(
-        appBar:  AppBar(
-          leading: Builder(
-            builder: (context) {
-              return IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-                icon: const Icon(
-                  Icons.menu_rounded,
-                  color: Colors.black,
-                ),
-              );
-            },
-          ),
+        key: _scaffoldKey,
+
+        drawer: const sideBar(),
+        appBar:
+        AppBar(
+
+
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.white12,
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  'JV Cycles',
-                  style: TextStyle(color: Colors.black),
+              //  Padding(
+              //   padding: EdgeInsets.only(left: 4),
+              //   child:  Text(
+              //     'jv',
+              //       style:  GoogleFonts.abyssinicaSil (fontSize: 35,color: Colors.black,fontWeight: FontWeight.bold)
+              //   ),
+              // ),
+
+
+
+              Container(
+                  decoration: BoxDecoration(shape: BoxShape.circle,color: Color.fromARGB(255, 250, 183, 139),border: Border.all(color: Colors.white24)),child:
+
+              IconButton(
+                onPressed: () {_scaffoldKey.currentState?.openDrawer();},
+                icon: const Icon(
+                  Icons.menu_outlined,
+                  color: Colors.black,
+                  size: 25,
+                ),
+              )),
+              SizedBox(width: 10,),
+              Container(
+
+                  decoration: BoxDecoration(shape: BoxShape.circle,color: Color.fromARGB(255, 250, 183, 139),border: Border.all(color: Colors.white24),),child:
+
+              IconButton(
+                onPressed: () =>context.go('/profile'),
+                icon: const Icon(
+                  Icons.account_circle_outlined,
+                  color: Colors.black,
+                  size: 25,
+                ),
+              )),
+              const Spacer(),
+              Container(
+                height: 50,
+                child: const Image(
+                  image: AssetImage('assets/LOGO.png'),
                 ),
               ),
-              const Spacer(),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SearchProduct(),
-                    ),
-                  );
-                },
-                icon: const Icon(
-                  Icons.search_rounded,
-                  color: Colors.black,
-                ),
-              )
+
             ],
           ),
         ),
         body:widget.child,
+
         bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.transparent,
               boxShadow: [
                 BoxShadow(
                   blurRadius: 20,
@@ -149,48 +173,44 @@ class _rootState extends State<root> {
               ],
             ),
             child: SafeArea(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-                    child: GNav(
-                      rippleColor: Colors.grey[300]!,
-                      hoverColor: Colors.grey[100]!,
-                      gap: 8,
-                      activeColor: Colors.black,
-                      iconSize: 24,
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      duration: Duration(milliseconds: 400),
-                      tabBackgroundColor: Colors.grey[100]!,
-                      color: Colors.black,
-                      tabs: [
-                        GButton(
-                          icon: LineAwesomeIcons.home,
-                          text: 'Home',
-                          onPressed:()=> context.go('/home')
-                          ,
-                        ),
-                        GButton(
-                          icon: LineAwesomeIcons.shopping_cart,
-                          text: 'Likes',
-                        ),
-                        GButton(
-                          icon: LineAwesomeIcons.list,
-                          text: 'view all',
-                          onPressed: ()=>context.go('/viewall'),
-                        ),
-                        GButton(
-                          icon: LineAwesomeIcons.user,
-                          text: 'Profile',
-                          onPressed: ()=>context.go('/profile'),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 8),
+                        child: GNav(
+                          rippleColor: Colors.grey[300]!,
+                          hoverColor: Colors.grey[100]!,
+                          gap: 8,
+                          activeColor: Colors.white,
+                          iconSize: 24,
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          duration: Duration(milliseconds: 400),
+                          tabBackgroundColor: Colors.orange!,
+                          tabBorderRadius: 15,
+                          color: Colors.black,
+                          tabs: [
+                            GButton(
+                              icon: LineAwesomeIcons.home,
+                              text: 'shop',
+                              onPressed:()=> context.go('/home')
+                              ,
+                            ),
+                            GButton(
+                              icon: LineAwesomeIcons.shopping_bag,
+                              text: 'cart',
+                            ),
 
-                        ),
-                      ],
-                      selectedIndex: _selectedIndex,
-                      onTabChange: (index) {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
-                      },
-                    ))))
+                          ],
+                          selectedIndex: _selectedIndex,
+                          onTabChange: (index) {
+                            setState(() {
+                              _selectedIndex = index;
+                            });
+                          },
+                        )),
+                  ],
+                )))
     );;
   }
 }
