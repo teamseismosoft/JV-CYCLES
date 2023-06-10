@@ -13,7 +13,7 @@ class profilePage extends StatelessWidget {
         stream: Auth().authStateChanges,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const Login();
+            return LoginPage(pageKey: 1);
           } else {
             return Scaffold(
               body: Column(

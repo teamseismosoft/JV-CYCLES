@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
@@ -40,20 +39,19 @@ class _HomePageState extends State<HomePage> {
       // ),
 
       body: ListView(children: [
-      Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 20,
-            color: Colors.black.withOpacity(.1),
-          )
-        ],
-      ),),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 20,
+                color: Colors.black.withOpacity(.1),
+              )
+            ],
+          ),
+        ),
         Column(
-
           children: [
-
             // Row(
             //   children: [
             //     Padding(
@@ -65,26 +63,41 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.all(18.0),
-              child: ElevatedButton(onPressed:()=>context.go('/search'),
-                style:ElevatedButton.styleFrom(backgroundColor: Colors.orangeAccent,padding: EdgeInsets.all(10)),
-
-
+              child: ElevatedButton(
+                onPressed: () => context.go('/search'),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orangeAccent,
+                    padding: const EdgeInsets.all(10)),
                 child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'search product',
+                          style: TextStyle(color: Colors.black.withOpacity(.3)),
+                        ),
+                        const Icon(
+                          Icons.search,
+                          color: Colors.black,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text('search product',style: TextStyle(color: Colors.black.withOpacity(.3)),),Icon(Icons.search,color: Colors.black,)],
-                ),
-                      ),
-
-              ),),
+              ),
             ),
-            Container(padding:EdgeInsets.all(10),alignment: Alignment.centerLeft,
-    child:Text('Hot Deals 🔥',style: TextStyle(fontSize: 20),)),
+            Container(
+                padding: const EdgeInsets.all(10),
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  'Hot Deals 🔥',
+                  style: TextStyle(fontSize: 20),
+                )),
             CarouselSlider.builder(
               itemCount: banner.length,
               itemBuilder:
@@ -101,21 +114,28 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
               ),
             ),
-    Container(padding:EdgeInsets.symmetric(horizontal: 10),child:
-            Column(
-              children: [
-                Text("New Arrivals ",style: TextStyle(fontSize: 20)),
-                Text("____________",style: TextStyle(color: Colors.orange,fontWeight: FontWeight.bold,fontSize: 20),)
-              ],
-              
-            ),),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  const Text("New Arrivals ", style: TextStyle(fontSize: 20)),
+                  const Text(
+                    "____________",
+                    style: TextStyle(
+                        color: Colors.orange,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: CarouselSlider.builder(
                 itemCount: banner.length,
                 itemBuilder:
                     (BuildContext context, int itemIndex, int pageViewIndex) =>
-                    CaroselContainer(banner[itemIndex]),
+                        CaroselContainer(banner[itemIndex]),
                 options: CarouselOptions(
                   height: 200,
                   enlargeCenterPage: true,
@@ -129,9 +149,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-              child: Container(
-
-              ),
+              child: Container(),
             ),
             // InkWell(
             //   onTap: () {
@@ -183,7 +201,7 @@ class _HomePageState extends State<HomePage> {
               width: MediaQuery.of(context).size.width - 28,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color.fromARGB(255, 250, 183, 139),
+                color: const Color.fromARGB(255, 250, 183, 139),
               ),
               child: Column(
                 children: [
@@ -248,11 +266,11 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => profilePage(),
+                        builder: (context) => const profilePage(),
                       ),
                     );
                   },
-                  child: Text('PROFILE PAGE')),
+                  child: const Text('PROFILE PAGE')),
             ),
             Padding(
               padding: const EdgeInsets.all(13),
@@ -261,11 +279,11 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Login(),
+                        builder: (context) => LoginPage(pageKey: 1),
                       ),
                     );
                   },
-                  child: Text('LOG IN PAGE')),
+                  child: const Text('LOG IN PAGE')),
             )
           ],
         ),

@@ -7,11 +7,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:jv_cycles/pages/loginPage.dart';
 import 'package:jv_cycles/pages/profile.dart';
 import 'package:jv_cycles/pages/sideBar.dart';
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart' hide Stack;
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:jv_cycles/pages/viewAll.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:jv_cycles/pages/search.dart';
@@ -51,9 +47,10 @@ final GoRouter _router = GoRouter(
               const HomePage(),
           routes: [
             GoRoute(
-                path: 'login',
-                builder: (BuildContext context, GoRouterState state) =>
-                    const Login()),
+              path: 'login',
+              builder: (BuildContext context, GoRouterState state) =>
+                  LoginPage(pageKey: 1),
+            ),
             GoRoute(
                 path: 'home',
                 builder: (BuildContext context, GoRouterState state) =>
