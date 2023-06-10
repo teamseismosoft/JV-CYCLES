@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+
+import '../services/auth.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -9,7 +13,46 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String? _emailAdd;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  String _errorMessage = '';
+  User? user = Auth().currentUser;
+
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+    } on FirebaseAuthException catch (error) {
+      setState(() {
+        _errorMessage = error.message!;
+      });
+    }
+  }
+
+  Future<void> createUserWithEmailAndPassword() async {
+    try {
+      await Auth().createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      Map<String, dynamic> userData = {
+        'email': user?.email,
+        'cart': [],
+      };
+
+      if (user != null) {
+        FirebaseFirestore.instance.collection('users').doc(user?.uid);
+      }
+    } on FirebaseAuthException catch (error) {
+      setState(() {
+        _errorMessage = error.message!;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +92,7 @@ class _LoginState extends State<Login> {
                     padding:
                         const EdgeInsets.only(top: 35, left: 45, right: 45),
                     child: TextFormField(
+                      controller: _emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -70,9 +114,7 @@ class _LoginState extends State<Login> {
                         }
                         return null;
                       },
-                      onSaved: (String? value) {
-                        _emailAdd = value;
-                      },
+                      onSaved: (String? value) {},
                     ),
                   ),
                   Padding(
@@ -80,6 +122,7 @@ class _LoginState extends State<Login> {
                         const EdgeInsets.only(top: 20, left: 45, right: 45),
                     child: TextField(
                       obscureText: true,
+                      controller: _passwordController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -112,9 +155,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      print('Sign In..');
-                    },
+                    onTap: signInWithEmailAndPassword,
                     child: Container(
                       padding: const EdgeInsets.only(
                           top: 8, bottom: 8, left: 20, right: 20),
@@ -144,7 +185,7 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Don't have any account ?  ",
+                          "Don't have any account ? ",
                           style: TextStyle(color: Colors.white),
                         ),
                         InkWell(

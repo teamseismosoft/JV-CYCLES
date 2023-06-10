@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jv_cycles/data/fetch.dart';
 import 'package:jv_cycles/pages/productPage.dart';
+import 'package:jv_cycles/services/model.dart';
 
 class gridView extends StatefulWidget {
   const gridView({super.key});
@@ -11,7 +12,7 @@ class gridView extends StatefulWidget {
 }
 
 class _gridViewState extends State<gridView> {
-  List<Data> Product = [];
+  List product = [];
 
   @override
   void initState() {
@@ -26,18 +27,30 @@ class _gridViewState extends State<gridView> {
 
   mapRecords(QuerySnapshot<Map<dynamic, dynamic>> records) {
     var lst = records.docs
-        .map((product) => Data(
+        .map((product) => Product(
               id: product.id,
               name: product['name'],
               actualPrice: product['actualPrice'],
               currentPrice: product['currentPrice'],
               discount: product['discount'],
-              image: product['image'],
+              image: product['img'],
+              bottleholder: product['bottleholder'],
+              brakes: product['brakes'],
+              colors: product['colors'],
+              expertiseLevel: product['expertiseLevel'],
+              frameMaterial: product['frameMaterial'],
+              frameSize: product['frameSize'],
+              gears: product['gears'],
+              gender: product['gender'],
+              type: product['type'],
+              suspension: product['suspension'],
+              tyreSize: product['tyreSize'],
+              weight: product['weight'],
             ))
         .toList();
 
     setState(() {
-      Product = lst;
+      product = lst;
     });
   }
 
@@ -56,13 +69,13 @@ class _gridViewState extends State<gridView> {
         backgroundColor: Colors.cyanAccent,
       ),
       body: ListView.builder(
-        itemCount: Product.length,
+        itemCount: product.length,
         itemBuilder: (context, index) => InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (builder) => ProductPage(id: Product[index].id),
+                builder: (builder) => ProductPage(id: product[index].id),
               ),
             );
           },
@@ -74,7 +87,7 @@ class _gridViewState extends State<gridView> {
                   height: 80,
                   width: 90,
                   child: Image.network(
-                    Product[index].image,
+                    product[index].image[0],
                     fit: BoxFit.fill,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
@@ -95,7 +108,7 @@ class _gridViewState extends State<gridView> {
                   child: Column(
                     children: [
                       Text(
-                        Product[index].name,
+                        product[index].name,
                         textAlign: TextAlign.start,
                         style: const TextStyle(
                             fontSize: 21, fontWeight: FontWeight.w600),
@@ -105,21 +118,21 @@ class _gridViewState extends State<gridView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '₹ ${Product[index].currentPrice}',
+                            '₹ ${product[index].currentPrice}',
                             style: const TextStyle(
                                 fontSize: 19, fontWeight: FontWeight.w500),
                           ),
                           const SizedBox(width: 8),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
-                            child: Text('₹ ${Product[index].actualPrice}',
+                            child: Text('₹ ${product[index].actualPrice}',
                                 style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                     decoration: TextDecoration.lineThrough)),
                           ),
                           Text(
-                            "(${Product[index].discount}%)",
+                            "(${product[index].discount}%)",
                             style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
