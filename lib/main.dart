@@ -5,9 +5,11 @@ import 'package:jv_cycles/pages/cartPage.dart';
 import 'package:jv_cycles/pages/homePage.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:jv_cycles/pages/loginPage.dart';
+import 'package:jv_cycles/pages/paymentPage.dart';
 import 'package:jv_cycles/pages/profile.dart';
 import 'package:jv_cycles/pages/sideBar.dart';
 import 'package:flutter/material.dart' hide Stack;
+import 'package:jv_cycles/pages/test.dart';
 import 'package:jv_cycles/pages/viewAll.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:jv_cycles/pages/search.dart';
@@ -68,9 +70,16 @@ final GoRouter _router = GoRouter(
                 builder: (BuildContext context, GoRouterState state) =>
                     const SearchProduct()),
             GoRoute(
-                path: 'cart',
-                builder: (BuildContext context, GoRouterState state) =>
-                    const CartPage())
+              path: 'cart',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const CartPage(),
+              // const TestPage(),
+              // const PaymentPage(
+              //   deliveryCharges: 50,
+              //   quantity: 2,
+              //   totalCost: 1000,
+              // ))
+            )
           ],
         ),
       ],
