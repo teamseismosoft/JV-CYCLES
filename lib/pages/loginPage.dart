@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
         'name': nameController.text,
         'email': emailController.text,
         'phone': phoneController.text,
-        'verified': false,
+        'cart': [],
       };
 
       await FirebaseFirestore.instance
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
           .set(userData);
 
       Fluttertoast.showToast(
-        msg: 'Verification link sent',
+        msg: 'Account created',
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 2,
@@ -321,7 +321,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Center(
                         child: TextFormField(
                           style: const TextStyle(color: Colors.white),
-                          controller: emailController,
+                          controller: nameController,
                           onChanged: (value) {},
                           decoration: InputDecoration(
                             filled: true,
@@ -373,7 +373,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Center(
                         child: TextFormField(
                           style: const TextStyle(color: Colors.white),
-                          controller: emailController,
+                          controller: phoneController,
                           onChanged: (value) {},
                           decoration: InputDecoration(
                             filled: true,
@@ -398,8 +398,24 @@ class _LoginPageState extends State<LoginPage> {
                       child: Center(
                         child: TextFormField(
                           style: const TextStyle(color: Colors.white),
-                          controller: emailController,
-                          onChanged: (value) {},
+                          controller: passwordController,
+                          obscureText: true,
+                          onChanged: (value) {
+                            if (value.isEmpty) {
+                              setState(() {
+                                _errorMessage = "* Password can not be empty";
+                              });
+                            } else if (value.length < 7) {
+                              setState(() {
+                                _errorMessage =
+                                    "* Password should be more than 6 characters";
+                              });
+                            } else {
+                              setState(() {
+                                _errorMessage = "";
+                              });
+                            }
+                          },
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color.fromARGB(255, 44, 49, 50),
@@ -415,6 +431,14 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        _errorMessage,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: Colors.red),
                       ),
                     ),
                     Padding(

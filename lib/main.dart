@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jv_cycles/pages/cartPage.dart';
 import 'package:jv_cycles/pages/homePage.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:jv_cycles/pages/loginCheck.dart';
 import 'package:jv_cycles/pages/loginPage.dart';
 import 'package:jv_cycles/pages/paymentPage.dart';
 import 'package:jv_cycles/pages/profile.dart';
@@ -72,7 +73,9 @@ final GoRouter _router = GoRouter(
             GoRoute(
               path: 'cart',
               builder: (BuildContext context, GoRouterState state) =>
-                  const CartPage(),
+                  LoginCheckPage(
+                page: const CartPage(),
+              ),
               // const TestPage(),
               // const PaymentPage(
               //   deliveryCharges: 50,

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jv_cycles/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:jv_cycles/widgets/cartItems.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class CartPage extends StatefulWidget {
@@ -15,7 +16,14 @@ class _CartPageState extends State<CartPage> {
   late int TotalCost = 0;
   List cartItems = [];
 
-  User? user = Auth().currentUser;
+  User? user;
+
+  @override
+  @override
+  void initState() {
+    super.initState();
+    user = Auth().currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,17 +81,37 @@ class _CartPageState extends State<CartPage> {
               List cartItems = parentSnapshot['cart'];
               TotalCost = 0;
               for (int i = 0; i < cartItems.length; i++) {
-                TotalCost += int.parse(cartItems[i]['currentPrice']);
+                TotalCost += int.parse(cartItems[i]['Price']);
               }
             }
-            return Expanded(
-              child: ListView.builder(
-                itemCount: cartItems.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Text(cartItems[index]);
-                },
-              ),
-            );
+            if (cartItems.isNotEmpty) {
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: cartItems.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .collection('products')
+                          .doc(cartItems[index])
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Text('No Data');
+                        } else {
+                          return CartItemsRow(
+                            title: snapshot.data!['name'],
+                            price: snapshot.data!['currentPrice'],
+                            id: snapshot.data!.id,
+                          );
+                        }
+                      },
+                    );
+                  },
+                ),
+              );
+            } else {
+              return const Text('Cart is Empty !');
+            }
           },
         ),
       ]),
